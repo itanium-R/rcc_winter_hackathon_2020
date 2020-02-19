@@ -1,15 +1,13 @@
 # -*- coding:utf-8 -*-
 
 import numpy as np
+from sklearn.metrics import r2_score
 import rwave
 
 
-def cos_sim(v1, v2):
-    ### -----*----- ベクトル間のコサイン類似度 -----*----- ##
-    v1 = v1.flatten()
-    v2 = v2.flatten()
-
-    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+def similarity(v1, v2):
+    ### -----*----- ベクトルの類似度 -----*----- ##
+    return r2_score(v1, v2)
 
 
 def convert_wave(ori_file, to_file, fs, sec):
@@ -24,8 +22,14 @@ def convert_wave(ori_file, to_file, fs, sec):
     rwave.write_wave(to_file, wave, fs)
 
 
-rate = 8000
-mfcc1 = rwave.to_mfcc('tmp/1.wav', rate)
-mfcc2 = rwave.to_mfcc('tmp/2.wav', rate)
+RATE = 8000
+SEC  = 5
 
-print(cos_sim(mfcc1, mfcc2))
+# サンプリングレート・秒数をキャスト
+convert_wave('tmp/1.wav', 'tmp/1.wav', RATE, SEC)
+convert_wave('tmp/2.wav', 'tmp/2.wav', RATE, SEC)
+# MFCCに変換
+mfcc1 = rwave.to_mfcc('tmp/1.wav', RATE)
+mfcc2 = rwave.to_mfcc('tmp/2.wav', RATE)
+
+print(similarity(mfcc1, mfcc2))
