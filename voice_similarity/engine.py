@@ -3,15 +3,21 @@
 import numpy as np
 from sklearn.metrics import r2_score
 import rwave
+from lib.LPC import *
 
 
 def similarity(v1, v2):
-    ### -----*----- ベクトルの類似度 -----*----- ##
+    ### -----*----- ベクトルの決定係数 -----*----- ##
     score = r2_score(v1, v2)
     if score < 0.0:
         score = 0.0
 
     return score ** 2
+
+
+def cos_sim(v1, v2):
+    ## -----*----- ベクトルのコサイン類似度 -----*----- ##
+    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
 
 def convert_wave(ori_file, to_file, fs, sec):
@@ -42,5 +48,18 @@ def comparison(file1, file2):
 
 
 if __name__ == '__main__':
-    score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
-    print(score)
+    # 決定係数
+    #score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
+    #print(score)
+
+    # LPC分析
+    extractor = Identifer()
+    lpc1 = extractor.lpc_spectral_envelope('audio/フリーザ.wav')
+    lpc2 = extractor.lpc_spectral_envelope('tmp/source.wav')
+    v1 = lpc1['lpc']
+    v2 = lpc2['lpc']
+    n = min(len(v1), len(v2))
+    v1, v2 = v1[:n], v2[:n]
+    print(v1)
+    print(v2)
+    print(similarity(v1, v2))
