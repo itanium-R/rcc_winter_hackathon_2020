@@ -54,7 +54,7 @@ def comparison(file1, file2):
     scores = []
     for i in range(len(mfcc1)-1):
         re_mfcc = np.roll(mfcc1, i)
-        scores.append(similarity(re_mfcc, mfcc2))
+        scores.append(similarity(re_mfcc.T, mfcc2.T))
         #scores.append(cos_sim(re_mfcc.flatten(), mfcc2.flatten()))
 
     return max(scores)
