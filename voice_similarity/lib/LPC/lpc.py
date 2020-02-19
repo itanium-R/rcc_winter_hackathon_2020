@@ -101,6 +101,7 @@ class Identifer(object):
             'argrelmax': scipy.signal.argrelmax(loglpcspec)[0],
             'argrelmin': scipy.signal.argrelmin(loglpcspec)[0],
             'max': np.amax(loglpcspec),
+            'min': np.amin(loglpcspec),
             'lpc': loglpcspec
         }
 

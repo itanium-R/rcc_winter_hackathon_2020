@@ -1,7 +1,7 @@
 import glob, rwave
 import librosa
 
-files = glob.glob('audio/*')
+files = glob.glob('audio/*.wav')
 for f in files:
     wave, fs = librosa.load(f)
     wave *= 10000

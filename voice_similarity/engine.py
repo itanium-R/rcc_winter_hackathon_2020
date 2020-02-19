@@ -38,15 +38,18 @@ def convert_wave(ori_file, to_file, fs, sec):
 
 def comparison(file1, file2):
     ## -----*----- 類似度を算出 -----*----- ##
+    score = {'mfcc': 0.0, 'lpc': 0.0}
     RATE = 8000
-    SEC  = 5
 
     # サンプリングレート・秒数をキャスト
-    w1, w2 = rwave.read_wave(file1)[0], rwave.read_wave(file2)[0]
+    w1, fs = rwave.read_wave(file1)
+    w2, _  = rwave.read_wave(file2)
+    sec = len(w1) / fs # 秒数
     if len(w1) != len(w2):
-        convert_wave(file1, file1, RATE, SEC)
-        convert_wave(file2, file2, RATE, SEC)
+        convert_wave(file1, file1, RATE, sec)
+        convert_wave(file2, file2, RATE, sec)
 
+    ## ===== MFCCで比較 ====================================
     # MFCCに変換
     mfcc1 = rwave.nomalize(rwave.to_mfcc(file1, RATE)).T
     mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE)).T
@@ -55,8 +58,26 @@ def comparison(file1, file2):
     for i in range(len(mfcc1)-1):
         re_mfcc = np.roll(mfcc1, i)
         scores.append(similarity(re_mfcc.T, mfcc2.T))
+    score['mfcc'] = max(scores)
 
-    return max(scores)
+    ## ===== LPC分析 ====================================
+    extractor = Identifer()
+    lpc1 = extractor.lpc_spectral_envelope(file1)
+    lpc2 = extractor.lpc_spectral_envelope(file2)
+    v1 = np.append(lpc1['argrelmax'], lpc1['max']),\
+         np.append(lpc1['argrelmin'], lpc1['min'])
+    v2 = np.append(lpc2['argrelmax'], lpc2['max']),\
+         np.append(lpc2['argrelmin'], lpc2['min'])
+
+    n_max = min(len(v1[0]), len(v2[0]))
+    n_min = min(len(v1[1]), len(v2[1]))
+    v1_max, v2_max = v1[0][:n_max], v2[0][:n_max]
+    v1_min, v2_min = v1[1][:n_min], v2[1][:n_min]
+    score['lpc'] = cos_sim(v1_max, v2_max) * cos_sim(v1_min, v2_min)
+
+
+    return score
+
 
 
 if __name__ == '__main__':
