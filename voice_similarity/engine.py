@@ -41,25 +41,25 @@ def comparison(file1, file2):
     convert_wave(file1, file1, RATE, SEC)
     convert_wave(file2, file2, RATE, SEC)
     # MFCCに変換
-    mfcc1 = rwave.to_mfcc(file1, RATE)
-    mfcc2 = rwave.to_mfcc(file2, RATE)
+    mfcc1 = rwave.nomalize(rwave.to_mfcc(file1, RATE))
+    mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE))
 
     return similarity(mfcc1, mfcc2)
 
 
 if __name__ == '__main__':
     # 決定係数
-    #score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
-    #print(score)
+    score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
+    print(score)
 
     # LPC分析
     extractor = Identifer()
     lpc1 = extractor.lpc_spectral_envelope('audio/フリーザ.wav')
     lpc2 = extractor.lpc_spectral_envelope('tmp/source.wav')
-    v1 = lpc1['lpc']
-    v2 = lpc2['lpc']
+    v1 = lpc1['argrelmax']
+    v2 = lpc2['argrelmax']
     n = min(len(v1), len(v2))
     v1, v2 = v1[:n], v2[:n]
     print(v1)
     print(v2)
-    print(similarity(v1, v2))
+    print(cos_sim(v1, v2))
