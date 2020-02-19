@@ -6,11 +6,11 @@ import rwave
 
 def cos_sim(v1, v2):
     ### -----*----- ベクトル間のコサイン類似度 -----*----- ##
-    sim = []
-    for i in range(len(v1)):
-        sim.append(np.dot(v1[i], v2[i]) / (np.linalg.norm(v1[i]) * np.linalg.norm(v2[i])))
+    v1 = v1.flatten()
+    v2 = v2.flatten()
 
-    return sum(sim) / len(sim)
+    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+
 
 def convert_wave(ori_file, to_file, fs, sec):
     ## -----*----- 音声ファイルのサンプリングレート・時間を変換 -----*----- ##
@@ -24,7 +24,6 @@ def convert_wave(ori_file, to_file, fs, sec):
     rwave.write_wave(to_file, wave, fs)
 
 
-convert_wave('tmp/1.wav', 'test.wav', 16000, 3)
 rate = 8000
 mfcc1 = rwave.to_mfcc('tmp/1.wav', rate)
 mfcc2 = rwave.to_mfcc('tmp/2.wav', rate)
