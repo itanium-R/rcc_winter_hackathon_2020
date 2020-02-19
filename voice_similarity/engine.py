@@ -7,7 +7,11 @@ import rwave
 
 def similarity(v1, v2):
     ### -----*----- ベクトルの類似度 -----*----- ##
-    return r2_score(v1, v2)
+    score = r2_score(v1, v2)
+    if score < 0.0:
+        score = 0.0
+
+    return score ** 2
 
 
 def convert_wave(ori_file, to_file, fs, sec):
