@@ -26,14 +26,16 @@ def convert_wave(ori_file, to_file, fs, sec):
     rwave.write_wave(to_file, wave, fs)
 
 
-RATE = 8000
-SEC  = 5
+def comparison(file1, file2):
+    ## -----*----- 類似度を算出 -----*----- ##
+    RATE = 8000
+    SEC  = 5
 
-# サンプリングレート・秒数をキャスト
-convert_wave('tmp/1.wav', 'tmp/1.wav', RATE, SEC)
-convert_wave('tmp/2.wav', 'tmp/2.wav', RATE, SEC)
-# MFCCに変換
-mfcc1 = rwave.to_mfcc('tmp/1.wav', RATE)
-mfcc2 = rwave.to_mfcc('tmp/2.wav', RATE)
+    # サンプリングレート・秒数をキャスト
+    convert_wave(file1, file1, RATE, SEC)
+    convert_wave(file2, file2, RATE, SEC)
+    # MFCCに変換
+    mfcc1 = rwave.to_mfcc(file1, RATE)
+    mfcc2 = rwave.to_mfcc(file2, RATE)
 
-print(similarity(mfcc1, mfcc2))
+    return similarity(mfcc1, mfcc2)
