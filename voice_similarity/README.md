@@ -15,6 +15,12 @@
 - Python 3.7.5
 
 
+## 使用方法
+### APIの起動
+```sh
+$ python api.py
+```
+
 ## インストール
 ```sh
 $ git clone https://github.com/AjxLab/rcc_winter_hackathon_2020
