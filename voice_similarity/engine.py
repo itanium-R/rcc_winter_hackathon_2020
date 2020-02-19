@@ -39,3 +39,8 @@ def comparison(file1, file2):
     mfcc2 = rwave.to_mfcc(file2, RATE)
 
     return similarity(mfcc1, mfcc2)
+
+
+if __name__ == '__main__':
+    score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
+    print(score)

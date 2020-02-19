@@ -99,7 +99,7 @@ class Recording(object):
         self.audio = {'past': [], 'main': []}
         self.record_end.set()
 
-        self.similarity = int(comparison(self.file, 'tmp/1.wav') * 100)
+        self.similarity = int(comparison(self.file, 'audio/孫悟空.wav') * 100)
 
     def input_audio(self):
         ## -----*----- 音声入力 -----*----- ##
