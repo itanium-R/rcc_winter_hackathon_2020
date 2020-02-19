@@ -94,8 +94,8 @@ class Identifer(object):
         lpcspec = np.abs(h)
         loglpcspec = 20 * np.log10(lpcspec)
 
-        # 100~1000[Hz]のバンドパスフィルタ
-        loglpcspec = loglpcspec[100:1000]
+        # 100~3000[Hz]のバンドパスフィルタ
+        loglpcspec = loglpcspec[100:3000]
 
         ret = {
             'argrelmax': scipy.signal.argrelmax(loglpcspec)[0],

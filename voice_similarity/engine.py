@@ -17,7 +17,11 @@ def similarity(v1, v2):
 
 def cos_sim(v1, v2):
     ## -----*----- ベクトルのコサイン類似度 -----*----- ##
-    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+    if len(v1)==0 or len(v2)==0:
+        return 0.0
+    score = np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
+
+    return score
 
 
 def convert_wave(ori_file, to_file, fs, sec):
@@ -38,13 +42,22 @@ def comparison(file1, file2):
     SEC  = 5
 
     # サンプリングレート・秒数をキャスト
-    convert_wave(file1, file1, RATE, SEC)
-    convert_wave(file2, file2, RATE, SEC)
-    # MFCCに変換
-    mfcc1 = rwave.nomalize(rwave.to_mfcc(file1, RATE))
-    mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE))
+    w1, w2 = rwave.read_wave(file1)[0], rwave.read_wave(file2)[0]
+    if len(w1) != len(w2):
+        convert_wave(file1, file1, RATE, SEC)
+        convert_wave(file2, file2, RATE, SEC)
 
-    return similarity(mfcc1, mfcc2)
+    # MFCCに変換
+    mfcc1 = rwave.nomalize(rwave.to_mfcc(file1, RATE)).T
+    mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE)).T
+
+    scores = []
+    for i in range(len(mfcc1)-1):
+        re_mfcc = np.roll(mfcc1, i)
+        scores.append(similarity(re_mfcc, mfcc2))
+        #scores.append(cos_sim(re_mfcc.flatten(), mfcc2.flatten()))
+
+    return max(scores)
 
 
 if __name__ == '__main__':
@@ -60,6 +73,4 @@ if __name__ == '__main__':
     v2 = lpc2['argrelmax']
     n = min(len(v1), len(v2))
     v1, v2 = v1[:n], v2[:n]
-    print(v1)
-    print(v2)
     print(cos_sim(v1, v2))
