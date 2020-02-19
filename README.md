@@ -2,6 +2,8 @@
 
 Group 2 source management
 
+![](img/RCC_Hackathon.jpeg)
+
 ## Description
 ○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
 
