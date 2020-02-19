@@ -1,1 +1,2 @@
 .DS_Store
+voice_similarity/tmp/*.wav
