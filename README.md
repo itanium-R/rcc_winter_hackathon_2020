@@ -5,7 +5,8 @@ Group 2 source management
 ![](img/RCC_Hackathon.jpeg)
 
 ## Description
-○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+Let's imitate the voice of the character!<br>
+This tool will tell you the similarity of your voice. Please do your best for a high score.
 
 
 ## Installation
