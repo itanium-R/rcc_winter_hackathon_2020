@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, jsonify, abort, make_response, request
-
+from engine import comparison
 
 api = Flask(__name__)
 
@@ -8,9 +8,12 @@ api = Flask(__name__)
 @api.route('/', methods=['POST'])
 def voice_similarity():
     ## -----*---- 音声の類似度を算出 -----*----- ##
-    print(request.form)
+    file = 'audio/%s.wav' % request.form['character']
 
-    result = {}
+    # 類似度を算出
+    score = comparison(file, request.form['wavfale'])
+
+    result = {'score': score}
     return make_response(jsonify(result))
 
 
