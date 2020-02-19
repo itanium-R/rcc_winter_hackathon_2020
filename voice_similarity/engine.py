@@ -3,6 +3,7 @@
 import numpy as np
 from sklearn.metrics import r2_score
 import rwave
+import math
 from lib.LPC import *
 
 
@@ -55,32 +56,46 @@ def comparison(file1, file2):
     mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE)).T
 
     scores = []
+    score['mfcc'] = 1.0
     for i in range(len(mfcc1)-1):
         re_mfcc = np.roll(mfcc1, i)
         scores.append(similarity(re_mfcc.T, mfcc2.T))
-    score['mfcc'] = max(scores)
+    for i in range(len(mfcc1.T)-1):
+        re_mfcc = np.roll(mfcc1.T, i)
+        score['mfcc'] *= cos_sim(re_mfcc.flatten(), mfcc2.flatten())
+    score['mfcc'] = (score['mfcc'] + max(scores)) / 2
+
 
     ## ===== LPC分析 ====================================
     extractor = Identifer()
     lpc1 = extractor.lpc_spectral_envelope(file1)
     lpc2 = extractor.lpc_spectral_envelope(file2)
-    v1 = np.append(lpc1['argrelmax'], lpc1['max']),\
-         np.append(lpc1['argrelmin'], lpc1['min'])
-    v2 = np.append(lpc2['argrelmax'], lpc2['max']),\
-         np.append(lpc2['argrelmin'], lpc2['min'])
+    v1 = np.append(lpc1['max'], lpc1['argrelmax']),\
+         np.append(lpc1['min'], lpc1['argrelmin'])
+    v2 = np.append(lpc2['max'], lpc2['argrelmax']),\
+         np.append(lpc2['min'], lpc2['argrelmin'])
 
     n_max = min(len(v1[0]), len(v2[0]))
     n_min = min(len(v1[1]), len(v2[1]))
     v1_max, v2_max = v1[0][:n_max], v2[0][:n_max]
     v1_min, v2_min = v1[1][:n_min], v2[1][:n_min]
     score['lpc'] = cos_sim(v1_max, v2_max) * cos_sim(v1_min, v2_min)
+    score['lpc'] = score['lpc'] ** 5
+
+    ret = (score['mfcc'] * score['lpc']) * 3
+    ret = 1 / (1 + e**-ret)
+    if ret > 0.75:
+        ret += np.random.rand() / 10.0
+    elif ret > 0.7:
+        pass
+    else:
+        ret *= np.random.rand()
+
+    return score, ret
 
 
-    return score
-
-
-
-if __name__ == '__main__':
+if  __name__ == '__main__':
     # 決定係数
     score = comparison('audio/フリーザ.wav', 'tmp/source.wav')
+    print(comparison('audio/フリーザ.wav', 'tmp/a.wav'))
     print(score)
