@@ -12,7 +12,7 @@ def similarity(v1, v2):
     if score < 0.0:
         score = 0.0
 
-    return score ** 2
+    return score
 
 
 def cos_sim(v1, v2):
@@ -55,22 +55,11 @@ def comparison(file1, file2):
     for i in range(len(mfcc1)-1):
         re_mfcc = np.roll(mfcc1, i)
         scores.append(similarity(re_mfcc.T, mfcc2.T))
-        #scores.append(cos_sim(re_mfcc.flatten(), mfcc2.flatten()))
 
     return max(scores)
 
 
 if __name__ == '__main__':
     # 決定係数
-    score = comparison('audio/孫悟空.wav', 'tmp/source.wav')
+    score = comparison('audio/フリーザ.wav', 'tmp/source.wav')
     print(score)
-
-    # LPC分析
-    extractor = Identifer()
-    lpc1 = extractor.lpc_spectral_envelope('audio/フリーザ.wav')
-    lpc2 = extractor.lpc_spectral_envelope('tmp/source.wav')
-    v1 = lpc1['argrelmax']
-    v2 = lpc2['argrelmax']
-    n = min(len(v1), len(v2))
-    v1, v2 = v1[:n], v2[:n]
-    print(cos_sim(v1, v2))
