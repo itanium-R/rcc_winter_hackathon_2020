@@ -43,12 +43,15 @@ def comparison(file1, file2):
     RATE = 8000
 
     # サンプリングレート・秒数をキャスト
-    w1, fs = rwave.read_wave(file1)
-    w2, _  = rwave.read_wave(file2)
-    sec = len(w1) / fs # 秒数
-    if len(w1) != len(w2):
-        convert_wave(file1, file1, RATE, sec)
-        convert_wave(file2, file2, RATE, sec)
+    w1, fs1 = rwave.read_wave(file1)
+    w2, fs2  = rwave.read_wave(file2)
+    sec1 = len(w1) / fs1
+    sec2 = len(w2) / fs2
+    if sec2 < sec1/4.0:
+        return score,  np.random.rand() / 10.0
+    if sec1 != sec2:
+        convert_wave(file1, file1, RATE, sec1)
+        convert_wave(file2, file2, RATE, sec1)
 
     ## ===== MFCCで比較 ====================================
     # MFCCに変換
@@ -97,5 +100,4 @@ def comparison(file1, file2):
 if  __name__ == '__main__':
     # 決定係数
     score = comparison('audio/フリーザ.wav', 'tmp/source.wav')
-    print(comparison('audio/フリーザ.wav', 'tmp/a.wav'))
     print(score)
