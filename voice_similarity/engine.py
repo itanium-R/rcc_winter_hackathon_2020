@@ -91,6 +91,8 @@ def comparison(file1, file2):
         ret += np.random.rand() / 10.0
     elif ret > 0.7:
         pass
+    elif ret > 0.65:
+        ret *= np.random.randint(7, 10) / 10.0
     else:
         ret *= np.random.rand()
 
