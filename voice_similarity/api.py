@@ -9,10 +9,11 @@ api = Flask(__name__)
 @api.route('/audio/calc', methods=['POST'])
 def audio_similarity():
     ## -----*---- 音声の類似度を算出 -----*----- ##
-    file = 'audio/%s.wav' % request.form['character']
+    file = 'audio/%s.wav' % request.form['name']
+    wav = request.files['wavFile']
 
     # 類似度を算出
-    score = comparison(file, request.form['wavfale'])
+    score = comparison(file, wav)
 
     result = {'score': score}
     return make_response(jsonify(result))
