@@ -7,7 +7,7 @@ api = Flask(__name__)
 
 
 @api.route('/audio/calc', methods=['POST'])
-def voice_similarity():
+def audio_similarity():
     ## -----*---- 音声の類似度を算出 -----*----- ##
     file = 'audio/%s.wav' % request.form['character']
 
@@ -19,7 +19,7 @@ def voice_similarity():
 
 
 @api.route('/audio/delete', methods=['DELETE'])
-def voice_similarity():
+def audio_delete():
     ## -----*---- キャラクターを削除 -----*----- ##
     file = 'audio/%s.wav' % request.form['character']
     os.remove(file)
