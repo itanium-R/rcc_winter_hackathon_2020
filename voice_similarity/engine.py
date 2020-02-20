@@ -109,8 +109,6 @@ def comparison(file1, file2):
     # 少数第２位まで求める [%]
     ret = int(10000*ret) / 100.0
 
-
-    print(score)
     return ret
 
 
