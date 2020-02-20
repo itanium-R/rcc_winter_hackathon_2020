@@ -88,6 +88,7 @@ def comparison(file1, file2):
     ret = (score['mfcc'] * score['lpc'])
     ret = (1 / (1 + math.e**-ret) - 0.5) * 4.3
 
+    # 精度を調整
     if   ret > 0.75:
         ret += np.random.rand() * 0.1
     elif ret > 0.70:
@@ -99,12 +100,11 @@ def comparison(file1, file2):
     # 少数第２位まで求める [%]
     ret = int(10000*ret) / 100.0
 
-    print(score)
     return ret
 
 
 if  __name__ == '__main__':
     # 決定係数
-    print('source:  %d' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
-    print('純音:    %d' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
-    print('フリーザ:%d' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
+    print('source:   %f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('純音:     %f' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
+    print('フリーザ: %f' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
