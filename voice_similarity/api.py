@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 from flask import Flask, jsonify, abort, make_response, request
 from engine import comparison
 
 api = Flask(__name__)
 
 
-@api.route('/', methods=['POST'])
+@api.route('/audio/calc', methods=['POST'])
 def voice_similarity():
     ## -----*---- 音声の類似度を算出 -----*----- ##
     file = 'audio/%s.wav' % request.form['character']
@@ -15,6 +16,15 @@ def voice_similarity():
 
     result = {'score': score}
     return make_response(jsonify(result))
+
+
+@api.route('/audio/delete', methods=['DELETE'])
+def voice_similarity():
+    ## -----*---- キャラクターを削除 -----*----- ##
+    file = 'audio/%s.wav' % request.form['character']
+    os.remove(file)
+
+    return make_response(jsonify({}))
 
 
 @api.errorhandler(404)
