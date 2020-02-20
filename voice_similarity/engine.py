@@ -44,7 +44,7 @@ def comparison(file1, file2):
 
     # サンプリングレート・秒数をキャスト
     w1, fs1 = rwave.read_wave(file1)
-    w2, fs2  = rwave.read_wave(file2)
+    w2, fs2 = rwave.read_wave(file2)
     sec1 = len(w1) / fs1
     sec2 = len(w2) / fs2
     if sec2 < sec1/4.0:
