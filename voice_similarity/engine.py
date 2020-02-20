@@ -48,8 +48,8 @@ def comparison(file1, file2):
     w2, fs2 = rwave.read_wave(file2)
     sec1 = len(w1) / fs1
     sec2 = len(w2) / fs2
-    '''if sec2 < sec1/4.0:
-        return int(1000*np.random.rand()) / 100.0'''
+    if sec2 < sec1/4.0:
+        return int(1000*np.random.rand()) / 100.0
     convert_wave(file2, FILE, RATE, sec1)
 
     ## ===== MFCCで比較 ====================================
