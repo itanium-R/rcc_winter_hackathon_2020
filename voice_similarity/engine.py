@@ -41,22 +41,21 @@ def comparison(file1, file2):
     ## -----*----- 類似度を算出 -----*----- ##
     score = {'mfcc': 0.0, 'lpc': 0.0}
     RATE = 8000
+    FILE = 'tmp/calc.wav'
 
     # サンプリングレート・秒数をキャスト
     w1, fs1 = rwave.read_wave(file1)
     w2, fs2 = rwave.read_wave(file2)
     sec1 = len(w1) / fs1
     sec2 = len(w2) / fs2
-    if sec2 < sec1/4.0:
-        return int(1000*np.random.rand()) / 100.0
-    if sec1 != sec2:
-        convert_wave(file1, file1, RATE, sec1)
-        convert_wave(file2, file2, RATE, sec1)
+    '''if sec2 < sec1/4.0:
+        return int(1000*np.random.rand()) / 100.0'''
+    convert_wave(file2, FILE, RATE, sec1)
 
     ## ===== MFCCで比較 ====================================
     # MFCCに変換
     mfcc1 = rwave.nomalize(rwave.to_mfcc(file1, RATE)).T
-    mfcc2 = rwave.nomalize(rwave.to_mfcc(file2, RATE)).T
+    mfcc2 = rwave.nomalize(rwave.to_mfcc(FILE, RATE)).T
 
     scores = []
     score['mfcc'] = 1.0
@@ -84,23 +83,28 @@ def comparison(file1, file2):
     v1_min, v2_min = v1[1][:n_min], v2[1][:n_min]
     score['lpc'] = cos_sim(v1_max, v2_max) * cos_sim(v1_min, v2_min)
     score['lpc'] = score['lpc'] ** 5
+    score['lpc'] = 1 / (1 + math.e ** -(10*score['lpc'] - 6.0))
 
-    ret = (score['mfcc'] * score['lpc']) * 3
-    ret = 1 / (1 + e**-ret)
-    if ret > 0.75:
-        ret += np.random.rand() / 10.0
-    elif ret > 0.7:
-        pass
-    elif ret > 0.65:
-        ret *= np.random.randint(7, 10) / 10.0
-    else:
+    ret = (score['mfcc'] * score['lpc'])
+    ret = (1 / (1 + math.e**-ret) - 0.5) * 4.3
+
+    if   ret > 0.75:
+        ret += np.random.rand() * 0.1
+    elif ret > 0.70:
+        ret += np.random.rand() * 0.05
+    elif ret < 0.40:
         ret *= np.random.rand()
+    if ret > 1.0:  ret = 1.0
+
+    # 少数第２位まで求める [%]
     ret = int(10000*ret) / 100.0
 
+    print(score)
     return ret
 
 
 if  __name__ == '__main__':
     # 決定係数
-    score = comparison('audio/フリーザ.wav', 'tmp/source.wav')
-    print(score)
+    print('source:  %d' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('純音:    %d' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
+    print('フリーザ:%d' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
