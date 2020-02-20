@@ -1,4 +1,5 @@
 .DS_Store
 voice_similarity/tmp/*.wav
 voice_similarity/audio/*.wav
+voice_similarity/audio/*/*.wav
 voice_similarity/__pycache__
