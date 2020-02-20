@@ -93,18 +93,33 @@ def comparison(file1, file2):
         ret += np.random.rand() * 0.3
     elif ret > 0.70:
         ret += np.random.rand() * 0.15
+    elif ret > 0.65:
+        ret += np.random.rand() * 0.10
+    elif ret > 0.40 and ret <= 0.45:
+        ret *= np.random.randint(5, 10) / 10.0
     elif ret < 0.40:
         ret *= np.random.rand()
     if ret > 1.0:  ret = 1.0
 
+    if score['lpc'] > 0.9:
+        ret = score['lpc']
+    if score['mfcc'] < 0.5:
+        ret *= score['mfcc'] * 2
+
     # 少数第２位まで求める [%]
     ret = int(10000*ret) / 100.0
 
+
+    print(score)
     return ret
 
 
 if  __name__ == '__main__':
     # 決定係数
-    print('gyuho:    %f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('フリーザ1:%f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('gyuho:    %f' % comparison('audio/フリーザ.wav', 'tmp/gyuho.wav'))
+    print('お天気:   %f' % comparison('audio/フリーザ.wav', 'tmp/onesan.wav'))
     print('純音:     %f' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
     print('フリーザ: %f' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
+    print('フリーザ2:%f' % comparison('audio/フリーザ.wav', 'tmp/free2.wav'))
+    print('kyo---san:%f' % comparison('audio/フリーザ.wav', 'tmp/kyo--.wav'))
