@@ -107,17 +107,17 @@ def comparison(file1, file2):
         ret *= score['mfcc'] * 2
 
     # 少数第２位まで求める [%]
-    ret = int(10000*ret) / 100.0
+    ret = int(10000*ret) / 100
 
     return ret
 
 
 if  __name__ == '__main__':
     # 決定係数
-    print('フリーザ1:%f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
-    print('gyuho:    %f' % comparison('audio/フリーザ.wav', 'tmp/gyuho.wav'))
-    print('お天気:   %f' % comparison('audio/フリーザ.wav', 'tmp/onesan.wav'))
-    print('純音:     %f' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
-    print('フリーザ: %f' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
-    print('フリーザ2:%f' % comparison('audio/フリーザ.wav', 'tmp/free2.wav'))
-    print('kyo---san:%f' % comparison('audio/フリーザ.wav', 'tmp/kyo--.wav'))
+    print('フリーザ1:%4.2f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('gyuho:    %4.2f' % comparison('audio/フリーザ.wav', 'tmp/gyuho.wav'))
+    print('お天気:   %4.2f' % comparison('audio/フリーザ.wav', 'tmp/onesan.wav'))
+    print('純音:     %4.2f' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
+    print('フリーザ: %4.2f' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
+    print('フリーザ2:%4.2f' % comparison('audio/フリーザ.wav', 'tmp/free2.wav'))
+    print('kyo---san:%4.2f' % comparison('audio/フリーザ.wav', 'tmp/kyo--.wav'))
