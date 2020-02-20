@@ -90,9 +90,9 @@ def comparison(file1, file2):
 
     # 精度を調整
     if   ret > 0.75:
-        ret += np.random.rand() * 0.1
+        ret += np.random.rand() * 0.3
     elif ret > 0.70:
-        ret += np.random.rand() * 0.05
+        ret += np.random.rand() * 0.15
     elif ret < 0.40:
         ret *= np.random.rand()
     if ret > 1.0:  ret = 1.0
@@ -105,6 +105,6 @@ def comparison(file1, file2):
 
 if  __name__ == '__main__':
     # 決定係数
-    print('source:   %f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
+    print('gyuho:    %f' % comparison('audio/フリーザ.wav', 'tmp/source.wav'))
     print('純音:     %f' % comparison('audio/フリーザ.wav', 'tmp/pi--.wav'))
     print('フリーザ: %f' % comparison('audio/フリーザ.wav', 'tmp/free.wav'))
