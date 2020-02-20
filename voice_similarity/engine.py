@@ -48,7 +48,7 @@ def comparison(file1, file2):
     sec1 = len(w1) / fs1
     sec2 = len(w2) / fs2
     if sec2 < sec1/4.0:
-        return np.random.rand() / 10.0
+        return int(1000*np.random.rand()) / 100.0
     if sec1 != sec2:
         convert_wave(file1, file1, RATE, sec1)
         convert_wave(file2, file2, RATE, sec1)
@@ -95,6 +95,7 @@ def comparison(file1, file2):
         ret *= np.random.randint(7, 10) / 10.0
     else:
         ret *= np.random.rand()
+    ret = int(10000*ret) / 100.0
 
     return ret
 
