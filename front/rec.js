@@ -5,12 +5,32 @@ let micIcon = document.querySelector("#micIcon");
 let pBar = document.querySelector("#pBar");
 let pBarInterb = null;
 let pBarWidth = 0;
+function animatePBar() {
+  if (micIcon) micIcon.src = "img/mic_active.png";
+  pBarWidth = 0;
+  pBarInterb = setInterval(() => {
+    pBar.style.width = pBarWidth + "%";
+    pBarWidth += 1;
+    if(pBarWidth > 100){
+      clearInterval(pBarInterb);
+      if (micIcon) micIcon.src = "img/mic.png";
+      initPBar();
+    }
+  }, recTime / 100);
+}
+
+function initPBar(){
+  pBarWidth = 0;
+  pBar.style.width = pBarWidth + "%";
+}
+
+let recTime = 2000;
+// ------------------------------------------------
 
 // for audio
 let audio_sample_rate = null;
 let scriptProcessor = null;
 let audioContext = null;
-let recTime = 2000;
 let stream;
 
 // audio data
@@ -153,18 +173,4 @@ try {
     .then(handleSuccess);
 } catch (e) {
   alert("この環境は録音非対応です");
-}
-
-function animatePBar() {
-  pBarWidth = 0;
-  pBarInterb = setInterval(() => {
-    pBar.style.width = pBarWidth + "%";
-    pBarWidth += 1;
-    if(pBarWidth > 100) clearInterval(pBarInterb);
-  }, recTime / 100);
-}
-
-function initPBar(){
-  pBarWidth = 0;
-  pBar.style.width = pBarWidth + "%";
 }
