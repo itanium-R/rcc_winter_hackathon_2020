@@ -18,7 +18,7 @@
       <img class="logo" src="img/logo.png" />
       <button class="topB" onclick="showSec('charSelector');">
         <div class="bImg">
-          <img src="img/orochimaru.png" />
+          <img src="img/mic_active.png" />
         </div>
         <div class="bStr">
           挑戦
@@ -26,13 +26,12 @@
       </button>
       <button class="topB" onclick="showSec('ranking');">
         <div class="bImg">
-          <img src="img/orochimaru.png" />
+          <img src="img/ranking.png" />
         </div>
         <div class="bStr">
           ランキング
         </div>
       </button>
-
 
     </div>
   </section>
@@ -50,12 +49,21 @@
     <div class="forSmaFo">
       <div class="backB" onclick="showSec('charSelector')"></div>
       <h2>録音</h2>
+      <script type="text/javascript" src="recorder.js"></script>
+      
       <div class="recMic">
         <p id="charNameP">Char Name</p>
-        <img class="mic" src="img/mic.png" />
+        <img class="mic" src="img/mic.png" onclick="startRec()" id="micIcon"/>
         
         <p id="wordsP">「Words...」</p>
+        
+        <div class="pBarWrap">
+          <div class="pBar" id="pBar">
+          </div>
+        </div>
         <p onclick="showSec('result')">[仮]</p>
+        <div id="listen"></div>
+        <script type="text/javascript" src="rec.js"></script>
       </div>
     </div>
   </section>
@@ -68,8 +76,7 @@
   </section>
 
   <section id="ranking">
-    <div class="forSmaFo">
-      
+    <div class="forSmaFo">      
       <div class="backB" onclick="showSec('top')"></div>
       <h2>ランキング</h2>
     </div>

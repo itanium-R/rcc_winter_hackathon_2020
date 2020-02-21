@@ -1,9 +1,9 @@
 const chars = [
-  { charName: "大蛇丸", words: "潜影蛇手", imgSrc: "img/orochimaru.png" },
-  { charName: "悟空", words: "おっすオラ悟空", imgSrc: "img/goku.png" },
-  { charName: "フリーザ", words: "私の戦闘力は53万です", imgSrc: "img/hreeza.png" },
-  { charName: "ドラえもん", words: "僕ドラえもん", imgSrc: "img/doraemon.png" },
-  { charName: "しずかちゃん", words: "のび太さーん", imgSrc: "img/sizukachan.png" },
+  { id: 1, charName: "大蛇丸", words: "潜影蛇手", imgSrc: "img/orochimaru.png" },
+  { id: 4, charName: "悟空", words: "おっすオラ悟空", imgSrc: "img/goku.png" },
+  { id: 5, charName: "フリーザ", words: "私の戦闘力は53万です", imgSrc: "img/hreeza.png" },
+  { id: 2, charName: "ドラえもん", words: "僕ドラえもん", imgSrc: "img/doraemon.png" },
+  { id: 3, charName: "しずかちゃん", words: "のび太さーん", imgSrc: "img/sizukachan.png" },
 ];
 let curChar = "";
 
