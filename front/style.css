@@ -103,30 +103,15 @@ button.topB {
   margin: 0 auto 0 0;
 }
 
-.box {
-  font-family: 'Kosugi Maru', sans-serif;
-  display: block;
-  width: 90%;
-  min-height: 11%;
-  margin: 3% 5% 0 5%;
-  background-color: #fff6d2;
-  border: solid 2px #e9ddaf;
-  border-radius: 20px;
-  font-size: 2em;
-  text-decoration: none;
-}
-
 .twitter-bStr {
   width: 65%;
   display: inline-block;
   vertical-align: middle;
   color: black;
-  transform: translateY(25%);
 }
 
 #share {
   border-radius: 12px;
-  transform: translateY(5%);
 }
 
 .score {
@@ -161,6 +146,30 @@ button.topB {
   font-size: 70%;
   top: 50%;
   transform: translate(225%, -35%);
+}
+
+.twitter{
+  text-decoration: none;
+}
+
+li{
+  font-family: 'Kosugi Maru', sans-serif;
+  min-height: 15%;
+  margin: 3% 5% 0 5%;
+  background-color: #fff6d2;
+  border: solid 2px #e9ddaf;
+  border-radius: 20px;
+  font-size: 2em;
+  display: -webkit-box; /* safari, Chrome */
+  display: -moz-box;    /* Firefox */
+  display: -o-box;      /* Opera */
+  display: -ms-box;     /* IE */
+  display: box;  
+  -webkit-box-align: center; /* safari, Chrome */
+  -moz-box-align: center;    /* Firefox */
+  -o-box-align: center;      /* Opera */
+  -ms-box-align: center;     /* IE */
+  box-align: center;         /* ベンダープレフィックスなし */
 }
 
 

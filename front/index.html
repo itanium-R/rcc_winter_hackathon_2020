@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>title</title>
   <script type="text/javascript" src="scTrans.js"></script>
+  <script type="text/javascript" src="apiAccessor.js"></script>
 </head>
 
 <body>
@@ -61,8 +62,6 @@
           <div class="pBar" id="pBar">
           </div>
         </div>
-        <p onclick="showSec('result')">[仮]</p>
-        <div id="listen"></div>
         <script type="text/javascript" src="rec.js"></script>
       </div>
     </div>
@@ -71,7 +70,7 @@
     <div class="forSmaFo">
       <h2>結果</h2>
       <p class="score">
-        <span class="score-number">77.7</span>
+        <span class="score-number" id="score">0</span>
         <span class="score-percent">%</span>
       </p>
       <script type="text/javascript" src="result.js"></script>
@@ -91,14 +90,27 @@
           もう一回
         </div>
       </button>
-      <a href="https://twitter.com/share?url=https://trpg7.site&text=test"" class=" box" target="_blank">
-        <div class="bImg">
-          <img src="img/Twitter_Logo_WhiteOnBlue.png" id="share" />
-        </div>
-        <div class="twitter-bStr">
-          シェアハピ
-        </div>
-      </a>
+      <li>
+        <a id="twitter" href="https://twitter.com/share?url=http://localhost&text=みんなもレッツ声真似☆" class="twitter"
+          target="_blank">
+          <div class="bImg">
+            <img src="img/Twitter_Logo_WhiteOnBlue.png" id="share" />
+          </div>
+          <div class="twitter-bStr">
+            シェアハピ
+          </div>
+        </a>
+      </li>
+    </div>
+    <script>
+      function updateTwitterLink() {
+        let el = document.getElementById("twitter");
+        el.setAttribute(
+          "href",
+          `https://twitter.com/share?url=${location.href}&text=${curChar.charName}の声まねで${curScore}点とりました★`
+        );
+      }
+    </script>
     </div>
   </section>
 
@@ -107,7 +119,7 @@
       <div class="backB" onclick="showSec('top')"></div>
       <h2>ランキング</h2>
       <div id="rankingContent"></div>
-      <script type="text/javascript" src="ranking.js" ></script>
+      <script type="text/javascript" src="ranking.js"></script>
     </div>
   </section>
 </body>

@@ -12,6 +12,8 @@ function hideAllSec() {
 
 function showSec(id) {
   hideAllSec();
+  if(id === "result") updateTwitterLink();
+  if(id === "ranking") api__rank_get();
   document.getElementById(id).style.display = "block";
 }
 

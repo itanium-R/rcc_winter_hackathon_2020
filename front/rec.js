@@ -16,7 +16,7 @@ function animatePBar() {
       if (micIcon) micIcon.src = "img/mic.png";
       initPBar();
     }
-  }, recTime / 100);
+  }, curChar.sec * 1000 / 100);
 }
 
 function initPBar(){
@@ -24,7 +24,6 @@ function initPBar(){
   pBar.style.width = pBarWidth + "%";
 }
 
-let recTime = 2000;
 // ------------------------------------------------
 
 // for audio
@@ -41,8 +40,6 @@ let saveAudio = function () {
   isRecording = false;
   url = exportWAV(audioData);
   audioContext.close();
-
-  if (micIcon) micIcon.src = "img/mic.png";
 };
 
 // export WAV from audio float data
@@ -102,13 +99,17 @@ let exportWAV = function (audioData) {
   let audioBlob = new Blob([dataview], { type: "audio/wav" });
   console.log(dataview);
   console.log(audioBlob);
+  
   // --------------------
   let fileReader = new FileReader();
   fileReader.onload = () => {
     let dataURI = fileReader.result;
     console.log(dataURI);
+    
   }
   fileReader.readAsDataURL(audioBlob);
+  
+  api__voice_calc(audioBlob); // ★APIﾊﾞｼﾊﾞｼ★
   // --------------------
 
   let myURL = window.URL || window.webkitURL;
@@ -140,7 +141,10 @@ function startRec() {
     audioContext = null;
     audioData = [];
 
-    audioContext = new AudioContext();
+    audioContext = new AudioContext({
+      latencyHint: 'interactive',
+      sampleRate: 8000,
+    });
     audio_sample_rate = audioContext.sampleRate;
     console.log(audio_sample_rate);
     scriptProcessor = audioContext.createScriptProcessor(bufferSize, 1, 1);
@@ -149,14 +153,12 @@ function startRec() {
     scriptProcessor.onaudioprocess = onAudioProcess;
     scriptProcessor.connect(audioContext.destination);
 
-    if (micIcon) micIcon.src = "img/mic_active.png";
-
     // when time passed without pushing the stop button
     setTimeout(function () {
       if (isRecording) {
         saveAudio();
       }
-    }, recTime);
+    }, curChar.sec * 1000);
 
     isRecording = true;
     animatePBar();
@@ -167,7 +169,10 @@ function startRec() {
 
 
 try {
-  audioContext = new AudioContext();
+  audioContext = new AudioContext({
+    latencyHint: 'interactive',
+    sampleRate: 8000,
+  });
   navigator.mediaDevices
     .getUserMedia({ audio: true, video: false })
     .then(handleSuccess);
