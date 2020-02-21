@@ -50,13 +50,13 @@
       <div class="backB" onclick="showSec('charSelector')"></div>
       <h2>録音</h2>
       <script type="text/javascript" src="recorder.js"></script>
-      
+
       <div class="recMic">
         <p id="charNameP">Char Name</p>
-        <img class="mic" src="img/mic.png" onclick="startRec()" id="micIcon"/>
-        
+        <img class="mic" src="img/mic.png" onclick="startRec()" id="micIcon" />
+
         <p id="wordsP">「Words...」</p>
-        
+
         <div class="pBarWrap">
           <div class="pBar" id="pBar">
           </div>
@@ -67,18 +67,47 @@
       </div>
     </div>
   </section>
-
   <section id="result">
     <div class="forSmaFo">
-      <div class="backB" onclick="showSec('charSelector')">仮仮仮仮仮仮仮仮仮</div>
       <h2>結果</h2>
+      <p class="score">
+        <span class="score-number">77.7</span>
+        <span class="score-percent">%</span>
+      </p>
+      <script type="text/javascript" src="result.js"></script>
+      <button class="box" onclick="showSec('ranking');">
+        <div class="bImg">
+          <img src="img/ranking.png" />
+        </div>
+        <div class="bStr">
+          ランキング
+        </div>
+      </button>
+      <button class="box" onclick="showSec('charSelector');">
+        <div class="bImg">
+          <img src="img/again.png" />
+        </div>
+        <div class="bStr">
+          もう一回
+        </div>
+      </button>
+      <a href="https://twitter.com/share?url=https://trpg7.site&text=test"" class=" box" target="_blank">
+        <div class="bImg">
+          <img src="img/Twitter_Logo_WhiteOnBlue.png" id="share" />
+        </div>
+        <div class="twitter-bStr">
+          シェアハピ
+        </div>
+      </a>
     </div>
   </section>
 
   <section id="ranking">
-    <div class="forSmaFo">      
+    <div class="forSmaFo">
       <div class="backB" onclick="showSec('top')"></div>
       <h2>ランキング</h2>
+      <div id="rankingContent"></div>
+      <script type="text/javascript" src="ranking.js" ></script>
     </div>
   </section>
 </body>

@@ -102,3 +102,123 @@ button.topB {
   background: #FAA;
   margin: 0 auto 0 0;
 }
+
+.box {
+  font-family: 'Kosugi Maru', sans-serif;
+  display: block;
+  width: 90%;
+  min-height: 11%;
+  margin: 3% 5% 0 5%;
+  background-color: #fff6d2;
+  border: solid 2px #e9ddaf;
+  border-radius: 20px;
+  font-size: 2em;
+  text-decoration: none;
+}
+
+.twitter-bStr {
+  width: 65%;
+  display: inline-block;
+  vertical-align: middle;
+  color: black;
+  transform: translateY(25%);
+}
+
+#share {
+  border-radius: 12px;
+  transform: translateY(5%);
+}
+
+.score {
+  background: repeating-conic-gradient(transparent, transparent 6deg, #fff6d2 6deg 12deg);
+  font-size: 6em;
+  height: 250px;
+  width: 90%;
+  margin: 9% auto;
+  position: relative;
+  animation-name: expansion;
+  animation-duration: 1s;
+}
+
+@keyframes expansion {
+  0% {
+    -webkit-transform: scale(0.0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+  }
+}
+
+.score-number {
+  position: absolute;
+  top: 50%;
+  transform: translate(-60%, -50%);
+  animation-timing-function: steps(77.7, end);
+}
+
+.score-percent {
+  position: absolute;
+  font-size: 70%;
+  top: 50%;
+  transform: translate(225%, -35%);
+}
+
+
+.rankingImg {
+  width: 25%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.rankingStr {
+  width: 30%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 2em;
+}
+
+.userRanking-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  list-style: none;
+  font-size: 1.5em;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.userRanking-list--item {
+  display: list-item;
+
+}
+
+.userRanking-list p {
+  background-color: #e9ddaf;
+  width: 30%;
+}
+
+
+.name{
+  flex-grow: 2;
+}
+
+
+.otherRanking-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  padding-top: 90px;
+}
+
+.otherRanking-img{
+  width: 64px;
+  height: 64px;
+}
+
+.rankingImgSrc{
+  background-color: aqua;
+}

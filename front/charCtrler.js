@@ -26,5 +26,5 @@ function decideChar(c) {
   document.querySelector("#charNameP").innerHTML = c.charName;
   document.querySelector("#wordsP").innerHTML = "「" + c.words + "」";
   showSec('recording');
-
+  renderRanking();
 }
