@@ -147,6 +147,7 @@ function startRec() {
 
 
 try {
+  audioContext = new AudioContext();
   navigator.mediaDevices
     .getUserMedia({ audio: true, video: false })
     .then(handleSuccess);
